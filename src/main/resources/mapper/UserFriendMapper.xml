@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lty.www.intel_ta_dsp.mapper.UserFriendMapper">
+
+    <insert id="addFriend" parameterType="com.lty.www.intel_ta_dsp.entity.UserFriend" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_friend (user_id, friend_id, created_at)
+        VALUES (#{userId}, #{friendId}, NOW()),
+               (#{friendId}, #{userId}, NOW())
+    </insert>
+
+    <select id="getFriendList" parameterType="long" resultType="com.lty.www.intel_ta_dsp.entity.User">
+        SELECT u.*
+        FROM user_friend uf
+                 JOIN user u ON uf.friend_id = u.id
+        WHERE uf.user_id = #{userId}
+    </select>
+
+</mapper>
