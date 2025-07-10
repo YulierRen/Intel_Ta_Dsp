@@ -36,4 +36,18 @@ public class UserFriendServiceImpl implements UserFriendService {
         return userFriendMapper.getFriendList(userId);
     }
 
+    @Override
+    public boolean deleteFriend(UserFriend userFriend) {
+        return userFriendMapper.deleteFriend(userFriend);
+    }
+
+    @Override
+    public boolean deleteFriend(UserFriendDTO userFriendDTO) {
+        UserFriend userFriend = UserFriend.builder()
+                .userId(userFriendDTO.getUserId())
+                .friendId(userFriendDTO.getFriendId())
+                .build();
+        return userFriendMapper.deleteFriend(userFriend);
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.lty.www.intel_ta_dsp.controller;
 
-import com.lty.www.intel_ta_dsp.mapper.UserMapper;
+
 import com.lty.www.intel_ta_dsp.dto.LoginRequest;
 import com.lty.www.intel_ta_dsp.dto.RegisterRequest;
 import com.lty.www.intel_ta_dsp.entity.User;
@@ -36,7 +36,7 @@ public class AuthController {
 
         User user = User.builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(request.getPassword())
                 .role("USER")  // 默认赋予 USER 权限
                 .build();
 

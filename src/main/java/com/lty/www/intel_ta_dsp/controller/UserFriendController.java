@@ -38,4 +38,13 @@ public class UserFriendController {
             return ResponseEntity.ok("添加失败");
         }
     }
+    @PostMapping("/deleteFriend")
+    public ResponseEntity<?> deleteFriend(@RequestBody UserFriendDTO dto) {
+        if(userFriendService.deleteFriend(dto)){
+            return ResponseEntity.ok("删除成功");
+        }
+        else{
+            return ResponseEntity.ok("删除失败");
+        }
+    }
 }

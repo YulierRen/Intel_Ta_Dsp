@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.lty.www.intel_ta_dsp.mapper.ScheduleMapper">
 
-    <select id="findById" resultType="com.lty.www.intel_ta_dsp.entity.Schedule">
+    <resultMap id="ScheduleResultMap" type="com.lty.www.intel_ta_dsp.entity.Schedule">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="title" column="title" />
+        <result property="description" column="description" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="location" column="location" />
+        <result property="isCompleted" column="is_completed" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <!-- 查询：根据 ID -->
+    <select id="findById" resultMap="ScheduleResultMap">
         SELECT * FROM schedule WHERE id = #{id}
     </select>
 
-    <select id="findByUserId" resultType="com.lty.www.intel_ta_dsp.entity.Schedule">
+    <!-- 查询：根据用户 ID -->
+    <select id="findByUserId" resultMap="ScheduleResultMap">
         SELECT * FROM schedule WHERE user_id = #{userId}
     </select>
 
+    <!-- 插入 -->
     <insert id="insertSchedule" parameterType="com.lty.www.intel_ta_dsp.entity.Schedule" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO schedule (user_id, title, description, start_time, end_time, location, is_completed, created_at, updated_at)
-        VALUES (#{userId}, #{title}, #{description}, #{startTime}, #{endTime}, #{location}, #{isCompleted}, NOW(), NOW())
+        INSERT INTO schedule (
+            user_id, title, description, start_time, end_time, location, is_completed
+        ) VALUES (
+                     #{userId}, #{title}, #{description}, #{startTime}, #{endTime}, #{location}, #{isCompleted}
+                 )
     </insert>
 
+    <!-- 更新 -->
     <update id="updateSchedule" parameterType="com.lty.www.intel_ta_dsp.entity.Schedule">
         UPDATE schedule
-        SET title = #{title},
+        SET
+            title = #{title},
             description = #{description},
             start_time = #{startTime},
             end_time = #{endTime},
@@ -28,6 +50,7 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 删除 -->
     <delete id="deleteSchedule" parameterType="long">
         DELETE FROM schedule WHERE id = #{id}
     </delete>

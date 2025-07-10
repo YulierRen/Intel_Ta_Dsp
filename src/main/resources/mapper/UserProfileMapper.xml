@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lty.www.intel_ta_dsp.mapper.UserProfileMapper">
+
+    <!-- 根据用户ID查询档案 -->
+    <select id="selectByUserId" resultType="com.lty.www.intel_ta_dsp.entity.UserProfile">
+        SELECT * FROM user_profile WHERE user_id = #{userId}
+    </select>
+
+    <!-- 新增用户档案 -->
+    <insert id="insertUserProfile" parameterType="com.lty.www.intel_ta_dsp.entity.UserProfile">
+        INSERT INTO user_profile (
+            user_id,
+            nickname,
+            avatar_url,
+            gender,
+            birthday,
+            bio,
+            created_at,
+            updated_at
+        ) VALUES (
+                     #{userId},
+                     #{nickname},
+                     #{avatarUrl},
+                     #{gender},
+                     #{birthday},
+                     #{bio},
+                     #{createdAt},
+                     #{updatedAt}
+                 )
+    </insert>
+
+    <!-- 更新用户档案（选择性更新非空字段） -->
+    <update id="updateByUserIdSelective" parameterType="com.lty.www.intel_ta_dsp.entity.UserProfile">
+        UPDATE user_profile
+        SET
+        <if test="nickname != null">nickname = #{nickname},</if>
+        <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+        <if test="gender != null">gender = #{gender},</if>
+        <if test="birthday != null">birthday = #{birthday},</if>
+        <if test="bio != null">bio = #{bio},</if>
+        updated_at = #{updatedAt}
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>
