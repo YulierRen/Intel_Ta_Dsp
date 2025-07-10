@@ -1,0 +1,81 @@
+mysql> 
+mysql> SHOW COLUMNS FROM user;
++----------+----------------------+------+-----+---------+----------------+
+| Field    | Type                 | Null | Key | Default | Extra          |
++----------+----------------------+------+-----+---------+----------------+
+| id       | bigint               | NO   | PRI | NULL    | auto_increment |
+| password | varchar(100)         | NO   |     | NULL    |                |
+| role     | enum('USER','ADMIN') | NO   |     | NULL    |                |
+| username | varchar(50)          | NO   | UNI | NULL    |                |
++----------+----------------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> SHOW COLUMNS FROM schedule;
++--------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| Field        | Type         | Null | Key | Default           | Extra                                         |
++--------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| id           | bigint       | NO   | PRI | NULL              | auto_increment                                |
+| user_id      | bigint       | NO   | MUL | NULL              |                                               |
+| title        | varchar(100) | NO   |     | NULL              |                                               |
+| description  | text         | YES  |     | NULL              |                                               |
+| start_time   | datetime     | NO   |     | NULL              |                                               |
+| end_time     | datetime     | NO   |     | NULL              |                                               |
+| location     | varchar(255) | YES  |     | NULL              |                                               |
+| is_completed | tinyint(1)   | YES  |     | 0                 |                                               |
+| created_at   | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at   | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++--------------+--------------+------+-----+-------------------+-----------------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM friend_request;
++-------------+---------------------------------------+------+-----+-------------------+-------------------+
+| Field       | Type                                  | Null | Key | Default           | Extra             |
++-------------+---------------------------------------+------+-----+-------------------+-------------------+
+| sender_id   | bigint                                | NO   | PRI | NULL              |                   |
+| receiver_id | bigint                                | NO   | PRI | NULL              |                   |
+| status      | enum('PENDING','ACCEPTED','REJECTED') | YES  |     | PENDING           |                   |
+| created_at  | datetime                              | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------+---------------------------------------+------+-----+-------------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM user_friend;
++------------+----------+------+-----+-------------------+-------------------+
+| Field      | Type     | Null | Key | Default           | Extra             |
++------------+----------+------+-----+-------------------+-------------------+
+| user_id    | bigint   | NO   | PRI | NULL              |                   |
+| friend_id  | bigint   | NO   | PRI | NULL              |                   |
+| created_at | datetime | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+----------+------+-----+-------------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM user_diary;
++------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| Field      | Type         | Null | Key | Default           | Extra                                         |
++------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| id         | bigint       | NO   | PRI | NULL              | auto_increment                                |
+| user_id    | bigint       | NO   | MUL | NULL              |                                               |
+| title      | varchar(100) | NO   |     | NULL              |                                               |
+| content    | text         | NO   |     | NULL              |                                               |
+| is_public  | tinyint(1)   | YES  |     | 1                 |                                               |
+| created_at | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++------------+--------------+------+-----+-------------------+-----------------------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM user_profile;
++------------+-------------------------------+------+-----+-------------------+-----------------------------------------------+
+| Field      | Type                          | Null | Key | Default           | Extra                                         |
++------------+-------------------------------+------+-----+-------------------+-----------------------------------------------+
+| user_id    | bigint                        | NO   | PRI | NULL              |                                               |
+| nickname   | varchar(50)                   | YES  |     | NULL              |                                               |
+| avatar_url | varchar(255)                  | YES  |     | NULL              |                                               |
+| gender     | enum('MALE','FEMALE','OTHER') | YES  |     | OTHER             |                                               |
+| birthday   | date                          | YES  |     | NULL              |                                               |
+| bio        | text                          | YES  |     | NULL              |                                               |
+| created_at | datetime                      | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at | datetime                      | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++------------+-------------------------------+------+-----+-------------------+-----------------------------------------------+
+8 rows in set (0.01 sec)
+
+mysql> 
+mysql> notee;
