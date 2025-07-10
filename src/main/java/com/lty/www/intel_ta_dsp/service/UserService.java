@@ -7,7 +7,18 @@ import java.util.List;
 public interface UserService {
     List<User> findAll();
 
+    User findByUsername(String username);
+
     boolean addUser(User user);
 
-    User findByUsername(String username);
+    boolean changePassword(User user);
+
+    boolean changeUsername(User user);
+
+    boolean changeRole(User user);
+
+    boolean deleteUser(User user);
+
+    boolean deleteUserById(Long userId);
 }
+

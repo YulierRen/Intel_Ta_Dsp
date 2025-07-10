@@ -5,9 +5,28 @@
 
 <mapper namespace="com.lty.www.intel_ta_dsp.mapper.FriendRequestMapper">
 
+    <resultMap id="FriendRequestResultMap" type="com.lty.www.intel_ta_dsp.entity.FriendRequest">
+        <id property="senderId" column="sender_id"/>
+        <id property="receiverId" column="receiver_id"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
     <insert id="addFriendRequest" parameterType="com.lty.www.intel_ta_dsp.entity.FriendRequest">
         INSERT INTO friend_request (sender_id, receiver_id, created_at)
         VALUES (#{senderId}, #{receiverId}, NOW())
     </insert>
+
+    <select id="findAllByReceiverId" resultMap="FriendRequestResultMap">
+        SELECT sender_id, receiver_id, status, created_at
+        FROM friend_request
+        WHERE receiver_id = #{receiverId}
+    </select>
+
+    <delete id="dropFriendRequest" parameterType="com.lty.www.intel_ta_dsp.entity.FriendRequest">
+        DELETE FROM friend_request
+        WHERE sender_id = #{senderId}
+          AND receiver_id = #{receiverId}
+    </delete>
 
 </mapper>

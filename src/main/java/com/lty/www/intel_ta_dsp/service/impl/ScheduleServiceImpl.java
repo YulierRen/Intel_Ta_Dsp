@@ -20,4 +20,24 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleMapper.findByUserId(studentId);
     }
 
+    @Override
+    public Schedule getScheduleById(Long id) {
+        return scheduleMapper.findById(id);
+    }
+
+    @Override
+    public boolean addSchedule(Schedule schedule) {
+        return scheduleMapper.insertSchedule(schedule) > 0;
+    }
+
+    @Override
+    public boolean updateSchedule(Schedule schedule) {
+        return scheduleMapper.updateSchedule(schedule) > 0;
+    }
+
+    @Override
+    public boolean deleteSchedule(Long id) {
+        return scheduleMapper.deleteSchedule(id) > 0;
+    }
+
 }

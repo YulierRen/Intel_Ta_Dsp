@@ -7,6 +7,8 @@ import com.lty.www.intel_ta_dsp.service.FriendRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FriendRequestServiceImpl implements FriendRequestService {
@@ -24,5 +26,15 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                 .receiverId(dto.getReceiverId())
                 .build();
         return friendRequestMapper.addFriendRequest(friendRequest);
+    }
+
+    @Override
+    public List<FriendRequest> findAllByReceiverId(Long receiverId) {
+        return friendRequestMapper.findAllByReceiverId(receiverId);
+    }
+
+    @Override
+    public boolean dropFriendRequest(FriendRequest friendRequest) {
+        return friendRequestMapper.dropFriendRequest(friendRequest);
     }
 }

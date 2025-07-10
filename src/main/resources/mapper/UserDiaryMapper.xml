@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lty.www.intel_ta_dsp.mapper.UserDiaryMapper">
+
+    <resultMap id="UserDiaryResultMap" type="com.lty.www.intel_ta_dsp.entity.UserDiary">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="isPublic" column="is_public"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 查询所有日记 -->
+    <select id="findAll" resultMap="UserDiaryResultMap">
+        SELECT id, user_id, title, content, is_public, created_at, updated_at
+        FROM user_diary
+    </select>
+
+    <!-- 根据用户ID查询日记 -->
+    <select id="findByUserId" resultMap="UserDiaryResultMap">
+        SELECT id, user_id, title, content, is_public, created_at, updated_at
+        FROM user_diary
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 插入新日记 -->
+    <insert id="insert" parameterType="com.lty.www.intel_ta_dsp.entity.UserDiary">
+        INSERT INTO user_diary (user_id, title, content, is_public, created_at, updated_at)
+        VALUES (#{userId}, #{title}, #{content}, #{isPublic}, NOW(), NOW())
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 根据ID设置is_public属性 -->
+    <update id="updateIsPublic">
+        UPDATE user_diary
+        SET is_public = #{isPublic},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除日记 -->
+    <delete id="deleteById">
+        DELETE FROM user_diary
+        WHERE id = #{id}
+    </delete>
+
+    <!--改内容-->
+    <update id="updateDiary">
+        UPDATE user_diary
+        SET title = #{title},
+            content = #{content},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>

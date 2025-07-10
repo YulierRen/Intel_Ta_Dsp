@@ -1,11 +1,15 @@
 package com.lty.www.intel_ta_dsp;
 
 import com.lty.www.intel_ta_dsp.entity.FriendRequest;
+import com.lty.www.intel_ta_dsp.entity.User;
+import com.lty.www.intel_ta_dsp.entity.UserDiary;
 import com.lty.www.intel_ta_dsp.entity.UserFriend;
+import com.lty.www.intel_ta_dsp.mapper.UserDiaryMapper;
 import com.lty.www.intel_ta_dsp.mapper.UserFriendMapper;
 import com.lty.www.intel_ta_dsp.mapper.UserMapper;
 import com.lty.www.intel_ta_dsp.service.FriendRequestService;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
+import com.lty.www.intel_ta_dsp.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +23,32 @@ class IntelTaDspApplicationTests {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserService userService;
+
+
+    @Test
+    void addUser(){
+        userService.addUser(User.builder()
+                .username("alice")
+                .password("123456")
+                .role("USER")
+                .build());
+
+        userService.addUser(User.builder()
+                .username("bob")
+                .password("123456")
+                .role("USER")
+                .build());
+
+        userService.addUser(User.builder()
+                .username("admin")
+                .password("admin123")
+                .role("ADMIN")
+                .build());
+
+    }
 
     @Autowired
     private ScheduleService scheduleService;
@@ -52,10 +82,21 @@ class IntelTaDspApplicationTests {
     private FriendRequestService friendRequestService;
     @Test
     void testFriendRequestMapper() {
-        FriendRequest friendRequest = new FriendRequest();
-        friendRequest.setSenderId(5L);
-        friendRequest.setReceiverId(6L);
+        FriendRequest friendRequest = FriendRequest.builder()
+                .senderId(5L)
+                .receiverId(6L)
+                .build();
         friendRequestService.sendAddFriendRequest(friendRequest);
     }
+
+    @Autowired
+    private UserDiaryMapper userDiaryMapper;
+
+    @Test
+    void testUserDiaryMapper() {
+        System.out.println(userDiaryMapper.findAll());
+    }
+
+
 
 }

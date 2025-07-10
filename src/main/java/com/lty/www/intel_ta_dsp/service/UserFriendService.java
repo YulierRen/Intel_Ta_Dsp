@@ -12,4 +12,7 @@ public interface UserFriendService {
     boolean addFriend(UserFriendDTO dto);
 
     List<User> getFriendList(Long userId);
+
+    boolean deleteFriend(UserFriend userFriend);
+    boolean deleteFriend(UserFriendDTO userFriendDTO);
 }

@@ -43,8 +43,45 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // ✅ 开启跨域
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // 允许所有人访问登录/注册接口
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/schedule/student/**").permitAll()
+
+                        // Swagger 相关（开发环境开放）
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // 用户管理接口（仅 ADMIN 可访问）
+                        .requestMatchers(
+                                "/api/user/changeRole",
+                                "/api/user/delete",
+                                "/api/user/deleteById/**"
+                        ).hasRole("ADMIN")
+
+                        // 用户信息更新（USER 和 ADMIN 均可）
+                        .requestMatchers(
+                                "/api/user/changeUsername",
+                                "/api/user/changePassword",
+                                "/api/user/add",
+                                "/api/user/allUser",
+                                "/api/user/find"
+                        ).hasAnyRole("USER", "ADMIN")
+
+                        // 日程管理
+                        .requestMatchers("/api/schedule/**").hasAnyRole("USER", "ADMIN")
+
+                        // 个人资料管理
+                        .requestMatchers("/api/userProfile/**").hasAnyRole("USER", "ADMIN")
+
+                        // 日志功能
+                        .requestMatchers("/api/userDiary/**").hasAnyRole("USER", "ADMIN")
+
+                        // 好友功能
+                        .requestMatchers("/api/userFriend/**", "/api/friendRequest/**").hasAnyRole("USER", "ADMIN")
+
+                        // 其他所有请求需要认证
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

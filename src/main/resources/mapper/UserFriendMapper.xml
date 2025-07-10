@@ -16,4 +16,11 @@
         WHERE uf.user_id = #{userId}
     </select>
 
+    <delete id="deleteFriend" parameterType="com.lty.www.intel_ta_dsp.entity.UserFriend">
+        DELETE FROM user_friend
+        WHERE (user_id = #{userId} AND friend_id = #{friendId})
+           OR (user_id = #{friendId} AND friend_id = #{userId})
+    </delete>
+
+
 </mapper>
