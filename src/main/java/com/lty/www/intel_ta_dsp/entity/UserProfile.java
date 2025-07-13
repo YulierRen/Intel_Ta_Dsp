@@ -2,6 +2,7 @@ package com.lty.www.intel_ta_dsp.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserProfile {
     private Long userId;              // 主键，关联 user 表
     private String nickname;          // 昵称

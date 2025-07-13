@@ -13,5 +13,7 @@ public interface UserProfileService {
     // 根据用户ID更新档案
     boolean updateUserProfile(UserProfile userProfile);
 
+    boolean deleteUserProfileByUserId(Long userId);
+
 }
 //先写mapper.xml

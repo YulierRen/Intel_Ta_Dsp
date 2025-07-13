@@ -37,4 +37,9 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     public boolean dropFriendRequest(FriendRequest friendRequest) {
         return friendRequestMapper.dropFriendRequest(friendRequest);
     }
+
+    @Override
+    public boolean dropFriendRequestById(Long id) {
+        return friendRequestMapper.dropFriendRequestById(id);
+    }
 }

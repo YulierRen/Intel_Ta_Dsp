@@ -17,5 +17,6 @@ public interface UserProfileMapper {
     // 用户更新档案（只更新非空字段）
     int updateByUserIdSelective(UserProfile userProfile);
 
+    boolean deleteByUserId(@Param("id") Long id);
 }
 //先写mapper.xml
