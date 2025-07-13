@@ -9,5 +9,4 @@ public class UserDiaryDTO {
     private String content;
     private Boolean isPublic = true; // 默认公开
     private Long id;                   // 日记ID
-
 }
