@@ -15,4 +15,5 @@ public interface FriendRequestMapper {
 
     boolean dropFriendRequest(FriendRequest friendRequest);
 
+    boolean dropFriendRequestById(Long id);
 }

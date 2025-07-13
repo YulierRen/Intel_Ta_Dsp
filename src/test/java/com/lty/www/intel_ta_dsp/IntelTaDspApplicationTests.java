@@ -1,18 +1,20 @@
 package com.lty.www.intel_ta_dsp;
 
-import com.lty.www.intel_ta_dsp.entity.FriendRequest;
-import com.lty.www.intel_ta_dsp.entity.User;
-import com.lty.www.intel_ta_dsp.entity.UserDiary;
-import com.lty.www.intel_ta_dsp.entity.UserFriend;
+import com.lty.www.intel_ta_dsp.entity.*;
 import com.lty.www.intel_ta_dsp.mapper.UserDiaryMapper;
 import com.lty.www.intel_ta_dsp.mapper.UserFriendMapper;
 import com.lty.www.intel_ta_dsp.mapper.UserMapper;
+import com.lty.www.intel_ta_dsp.mapper.UserProfileMapper;
 import com.lty.www.intel_ta_dsp.service.FriendRequestService;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
 import com.lty.www.intel_ta_dsp.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
+
+import static com.lty.www.intel_ta_dsp.entity.UserProfile.Gender.OTHER;
 
 @SpringBootTest
 class IntelTaDspApplicationTests {
@@ -30,24 +32,46 @@ class IntelTaDspApplicationTests {
 
     @Test
     void addUser(){
-        userService.addUser(User.builder()
-                .username("alice")
-                .password("123456")
-                .role("USER")
-                .build());
-
-        userService.addUser(User.builder()
-                .username("bob")
-                .password("123456")
-                .role("USER")
-                .build());
-
-        userService.addUser(User.builder()
-                .username("admin")
-                .password("admin123")
+//        userService.addUser(User.builder()
+//                .username("alice")
+//                .password("123456")
+//                .role("USER")
+//                .build());
+//
+//        userService.addUser(User.builder()
+//                .username("bob")
+//                .password("123456")
+//                .role("USER")
+//                .build());
+//
+//        userService.addUser(User.builder()
+//                .username("admin")
+//                .password("admin123")
+//                .role("ADMIN")
+//                .build());
+          userService.addUser(User.builder()
+                .username("刘天野")
+                .password("123")
                 .role("ADMIN")
                 .build());
 
+    }
+    @Autowired
+    UserProfileMapper userProfileMapper;
+
+    @Test
+    void addProfile() {
+        UserProfile newUserProfile = UserProfile.builder()
+                .userId(26L)
+                .nickname("你的昵称，可更改")
+                .gender(OTHER)
+                .avatarUrl("待上传")
+                .birthday(null)
+                .bio("这个人很懒，懒得介绍自己")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+        userProfileMapper.insertUserProfile(newUserProfile);
     }
 
     @Autowired
@@ -96,7 +120,6 @@ class IntelTaDspApplicationTests {
     void testUserDiaryMapper() {
         System.out.println(userDiaryMapper.findAll());
     }
-
 
 
 }

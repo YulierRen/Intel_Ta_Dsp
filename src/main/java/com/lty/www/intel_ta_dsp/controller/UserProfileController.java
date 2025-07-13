@@ -16,12 +16,12 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
     @PostMapping("/myProfile")
-    public ResponseEntity<String> findById(@RequestParam Long userId) {
+    public ResponseEntity<UserProfile> findById(@RequestParam Long userId) {
         UserProfile profile = userProfileService.getUserProfileByUserId(userId);
         if (profile == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到用户档案");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserProfile());
         }
-        return ResponseEntity.ok("查询成功：" + profile);
+        return ResponseEntity.ok(profile);
     }
 
 //    /**

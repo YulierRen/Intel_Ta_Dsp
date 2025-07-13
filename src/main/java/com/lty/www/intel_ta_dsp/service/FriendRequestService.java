@@ -15,4 +15,5 @@ public interface FriendRequestService {
 
     boolean dropFriendRequest(FriendRequest friendRequest);
 
+    boolean dropFriendRequestById(Long id);
 }

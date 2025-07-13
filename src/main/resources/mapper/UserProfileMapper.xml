@@ -44,4 +44,8 @@
         WHERE user_id = #{userId}
     </update>
 
+    <delete id="deleteByUserId" parameterType="long">
+        delete from user_profile where user_id=#{id}
+    </delete>
+
 </mapper>

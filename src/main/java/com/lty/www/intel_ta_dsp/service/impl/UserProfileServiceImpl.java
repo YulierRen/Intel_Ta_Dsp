@@ -34,4 +34,9 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfile.setUpdatedAt(LocalDateTime.now());
         return userProfileMapper.updateByUserIdSelective(userProfile)>0;
     }
+
+    @Override
+    public boolean deleteUserProfileByUserId(Long userId) {
+        return userProfileMapper.deleteByUserId(userId);
+    }
 }

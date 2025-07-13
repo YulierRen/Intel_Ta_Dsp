@@ -28,5 +28,10 @@
         WHERE sender_id = #{senderId}
           AND receiver_id = #{receiverId}
     </delete>
+    <delete id="dropFriendRequestById" parameterType="long">
+        DELETE FROM friend_request
+        WHERE sender_id = #{id}
+          or receiver_id = #{id}
+    </delete>
 
 </mapper>
