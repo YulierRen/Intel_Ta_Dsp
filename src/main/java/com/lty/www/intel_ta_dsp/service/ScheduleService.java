@@ -1,5 +1,7 @@
 package com.lty.www.intel_ta_dsp.service;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.AiSchedule;
+import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.Schedule;
 import java.util.List;
 
@@ -14,9 +16,14 @@ public interface ScheduleService {
     // 添加新的日程
     boolean addSchedule(Schedule schedule);
 
+    boolean addSchedule(AiSchedule aischedule,Long id);
+
     // 修改已有日程
     boolean updateSchedule(Schedule schedule);
 
     // 删除日程
     boolean deleteSchedule(Long id);
+
+
+    List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO);
 }

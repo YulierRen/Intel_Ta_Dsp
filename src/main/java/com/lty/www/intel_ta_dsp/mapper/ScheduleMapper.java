@@ -1,5 +1,6 @@
 package com.lty.www.intel_ta_dsp.mapper;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.Schedule;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +17,6 @@ public interface ScheduleMapper {
     int updateSchedule(Schedule schedule);
 
     int deleteSchedule(Long id);
+
+    List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO);
 }

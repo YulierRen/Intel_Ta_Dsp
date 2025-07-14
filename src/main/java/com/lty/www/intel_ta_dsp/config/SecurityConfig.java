@@ -75,6 +75,9 @@ public class SecurityConfig {
                         // 个人资料管理
                         .requestMatchers("/api/userProfile/**").hasAnyRole("USER", "ADMIN")
 
+                        // AI 智能生成（USER 和 ADMIN 可访问）
+                        .requestMatchers("/api/ai/**").hasAnyRole("USER", "ADMIN")
+
                         // 日志功能
                         .requestMatchers("/api/userDiary/**").hasAnyRole("USER", "ADMIN")
 

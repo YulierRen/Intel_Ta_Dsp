@@ -1,10 +1,8 @@
 package com.lty.www.intel_ta_dsp;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.*;
-import com.lty.www.intel_ta_dsp.mapper.UserDiaryMapper;
-import com.lty.www.intel_ta_dsp.mapper.UserFriendMapper;
-import com.lty.www.intel_ta_dsp.mapper.UserMapper;
-import com.lty.www.intel_ta_dsp.mapper.UserProfileMapper;
+import com.lty.www.intel_ta_dsp.mapper.*;
 import com.lty.www.intel_ta_dsp.service.FriendRequestService;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
 import com.lty.www.intel_ta_dsp.service.UserService;
@@ -13,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.lty.www.intel_ta_dsp.entity.UserProfile.Gender.OTHER;
 
 @SpringBootTest
 class IntelTaDspApplicationTests {
-
     @Test
     void contextLoads() {
     }
@@ -76,6 +74,24 @@ class IntelTaDspApplicationTests {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @Test
+    void testFindFromStartToEnd() {
+        ScheduleGenerateDTO dto = new ScheduleGenerateDTO();
+        dto.setUserId(26L);
+        dto.setStartTime("2025-12-16 00:00:00");
+        dto.setEndTime("2025-12-21 23:59:59");
+
+        List<Schedule> schedules = scheduleService.findFromStartToEnd(dto);
+
+        System.out.println("查询到的日程数量：" + schedules.size());
+        for (Schedule s : schedules) {
+            System.out.println(s);
+        }
+
+    }
+
+
     @Test
     void testUserMapper() {
         System.out.println(userMapper.findByUsername("user"));

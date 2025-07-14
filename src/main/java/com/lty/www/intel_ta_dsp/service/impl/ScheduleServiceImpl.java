@@ -1,11 +1,14 @@
 package com.lty.www.intel_ta_dsp.service.impl;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.AiSchedule;
+import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.mapper.ScheduleMapper;
 import com.lty.www.intel_ta_dsp.entity.Schedule;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,4 +43,22 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleMapper.deleteSchedule(id) > 0;
     }
 
+    @Override
+    public List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO) {
+        return scheduleMapper.findFromStartToEnd(scheduleGenerateDTO);
+    }
+
+    @Override
+    public boolean addSchedule(AiSchedule ai,Long id){
+        Schedule schedule = Schedule.builder()
+                .userId(id)
+                .title(ai.getTitle())
+                .description(ai.getDescription())
+                .startTime(ai.getStartTime())
+                .endTime(ai.getEndTime())
+                .location(ai.getLocation())
+                .isCompleted(false)
+                .build();
+        return scheduleMapper.insertSchedule(schedule) > 0;
+    }
 }
