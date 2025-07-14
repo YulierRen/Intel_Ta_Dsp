@@ -55,4 +55,26 @@
         DELETE FROM schedule WHERE id = #{id}
     </delete>
 
+    <select id="findFromStartToEnd" parameterType="com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO" resultType="com.lty.www.intel_ta_dsp.entity.Schedule">
+        SELECT
+            id,
+            user_id AS userId,
+            title,
+            description,
+            start_time AS startTime,
+            end_time AS endTime,
+            location,
+            is_completed AS isCompleted,
+            created_at AS createdAt,
+            updated_at AS updatedAt
+        FROM schedule
+        WHERE user_id = #{userId}
+          AND (
+            (start_time &lt;= #{endTime} AND end_time &gt;= #{startTime})
+            )
+        ORDER BY start_time ASC
+    </select>
+
+
+
 </mapper>
