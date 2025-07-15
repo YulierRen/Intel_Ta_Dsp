@@ -1,5 +1,6 @@
 package com.lty.www.intel_ta_dsp;
 
+import com.lty.www.intel_ta_dsp.dto.UserDaynoteDTO;
 import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.*;
 import com.lty.www.intel_ta_dsp.mapper.*;
@@ -10,7 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import static com.lty.www.intel_ta_dsp.entity.UserProfile.Gender.OTHER;
@@ -79,8 +83,8 @@ class IntelTaDspApplicationTests {
     void testFindFromStartToEnd() {
         ScheduleGenerateDTO dto = new ScheduleGenerateDTO();
         dto.setUserId(26L);
-        dto.setStartTime("2025-12-16 00:00:00");
-        dto.setEndTime("2025-12-21 23:59:59");
+//        dto.setStartTime("2025-12-16 00:00:00");
+//        dto.setEndTime("2025-12-21 23:59:59");
 
         List<Schedule> schedules = scheduleService.findFromStartToEnd(dto);
 
@@ -138,4 +142,76 @@ class IntelTaDspApplicationTests {
     }
 
 
+
+    @Autowired
+    private UserDaynoteMapper userDaynoteMapper;
+
+    private static final Long TEST_USER_ID = 26L;
+    private static final LocalDate TEST_DATE = LocalDate.now(); // 只保留日期，无时间
+
+    @Test
+    void testCrud() {
+        System.out.println("开始测试 UserDaynote CRUD, 日期: " + TEST_DATE);
+
+        // 构造 DTO 查询条件
+        UserDaynoteDTO dto = UserDaynoteDTO.builder()
+                .userId(TEST_USER_ID)
+                .date(TEST_DATE)
+                .build();
+
+        // 1. 初始查询
+        List<UserDaynote> beforeInsert = userDaynoteMapper.selectBy(dto);
+        System.out.println("【初始查询】结果: " + beforeInsert);
+
+        // 2. 插入数据
+        UserDaynote note = UserDaynote.builder()
+                .userId(TEST_USER_ID)
+                .title("测试日记标题")
+                .description("这是一个测试日记内容")
+                .date(TEST_DATE)
+                .build();
+
+        boolean inserted = userDaynoteMapper.insert(note);
+        System.out.println("【插入操作】成功？" + inserted);
+
+        // 3. 插入后查询
+        List<UserDaynote> afterInsert = userDaynoteMapper.selectBy(dto);
+        System.out.println("【插入后查询】结果: " + afterInsert);
+
+        // 4. 修改
+        if (!afterInsert.isEmpty()) {
+            UserDaynote toUpdate = afterInsert.get(0);
+            toUpdate.setTitle("修改后的标题");
+            toUpdate.setDescription("这是修改后的内容");
+
+            boolean updated = userDaynoteMapper.update(toUpdate);
+            System.out.println("【更新操作】成功？" + updated);
+        }
+
+        // 5. 更新后查询
+        List<UserDaynote> afterUpdate = userDaynoteMapper.selectBy(dto);
+        System.out.println("【更新后查询】结果: " + afterUpdate);
+
+        // 6. 删除
+        boolean deleted = userDaynoteMapper.delete(dto);
+        System.out.println("【删除操作】成功？" + deleted);
+
+        // 7. 删除后查询
+        List<UserDaynote> afterDelete = userDaynoteMapper.selectBy(dto);
+        System.out.println("【删除后查询】结果: " + afterDelete);
+    }
+
+
+    @Test
+    void show(){
+
+        System.out.println(TEST_USER_ID);
+        System.out.println(TEST_DATE);
+        UserDaynoteDTO dto = UserDaynoteDTO.builder()
+                .userId(TEST_USER_ID)
+                .date(TEST_DATE)
+                .build();
+        List<UserDaynote> afterInsert = userDaynoteMapper.selectBy(dto);
+        System.out.println("【插入后查询】结果: " + afterInsert);
+    }
 }

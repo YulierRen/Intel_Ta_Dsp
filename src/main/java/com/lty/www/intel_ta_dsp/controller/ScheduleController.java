@@ -42,6 +42,7 @@ public class ScheduleController {
      */
     @PostMapping("/add")
     public ResponseEntity<String> addSchedule(@RequestBody Schedule schedule) {
+        System.out.println(schedule);
         if (scheduleService.addSchedule(schedule)) {
             return ResponseEntity.ok("添加成功");
         } else {

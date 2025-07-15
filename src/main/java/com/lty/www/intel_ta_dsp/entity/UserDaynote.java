@@ -1,23 +1,24 @@
 package com.lty.www.intel_ta_dsp.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@Builder
 @ToString
-public class Schedule {
-    private Long id;
+@Builder
+public class UserDaynote {
     private Long userId;
     private String title;
     private String description;
-    private Date startTime;
-    private Date endTime;
-    private String location;
-    private Boolean isCompleted;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
     private Date createdAt;
     private Date updatedAt;
 }

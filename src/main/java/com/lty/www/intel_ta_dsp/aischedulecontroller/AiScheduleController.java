@@ -53,9 +53,9 @@ public class AiScheduleController {
 
         1. 只安排与目标相关的任务，不允许安排其他不相关内容。
         2. 任务时间必须在指定时间范围内。
-        3. 一天内最多安排两条任务，最少安排零条任务，且时间不重叠。
+        3. 一天内可以安排零到三条任务不等，且时间不重叠。
         4. 每个任务时长建议30分钟至3小时。
-        5. 任务合理分布在整个时间范围内。
+        5. 在整个时间范围内，合理安排任务在一天中的时间段。
         6. 返回纯 JSON 数组，无额外文字说明。
         """.formatted(dto.getRequirements(), dto.getStartTime(), dto.getEndTime(), occupiedTimeInfo);
     }
