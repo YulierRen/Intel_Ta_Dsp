@@ -7,14 +7,16 @@ import com.lty.www.intel_ta_dsp.mapper.UserDaynoteMapper;
 import com.lty.www.intel_ta_dsp.service.UserDaynoteService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@NoArgsConstructor
+
 public class UserDaynoteServiceImpl implements UserDaynoteService {
 
+    @Autowired
     private UserDaynoteMapper userDaynoteMapper;
 
     @Override

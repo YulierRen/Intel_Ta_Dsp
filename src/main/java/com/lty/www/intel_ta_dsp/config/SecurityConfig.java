@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 允许所有人访问登录/注册接口
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/avatar/**").permitAll()
 
                         // Swagger 相关（开发环境开放）
                         .requestMatchers(

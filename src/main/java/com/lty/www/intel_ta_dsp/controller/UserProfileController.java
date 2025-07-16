@@ -6,7 +6,14 @@ import com.lty.www.intel_ta_dsp.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/userProfile")
@@ -24,22 +31,19 @@ public class UserProfileController {
         return ResponseEntity.ok(profile);
     }
 
-//    /**
-//     * 新增用户档案
-//     */
-//    @PostMapping("/addProfile")
-//    public ResponseEntity<String> addUserProfile(@RequestBody UserProfile userProfile) {
-//        try {
-//            userProfileService.insertUserProfile(userProfile);
-//            return ResponseEntity.status(HttpStatus.CREATED).body("用户档案创建成功");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("创建失败：" + e.getMessage());
-//        }
-//    }
+    @PostMapping("/upload/avatar")
+    public Map<String, String> uploadAvatar(@RequestParam("file") MultipartFile file) throws IOException {
+        String ext = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        String filename = UUID.randomUUID() + "." + ext;
 
-    /**
-     * 更新用户档案
-     */
+        // ✅ 修复拼写错误，添加 / 分隔符
+        String uploadPath = "/home/yulierren/Project/Intel_Ta_Dsp/src/main/resources/avatar/" + filename;
+        file.transferTo(new File(uploadPath));
+
+        String url = "http://192.168.176.250:8080/avatar/" + filename;
+        return Map.of("url", url);
+    }
+
     @PutMapping("/updateProfile")
     public ResponseEntity<String> updateUserProfile(@RequestBody UserProfile userProfile) {
         // 检查用户是否存在
