@@ -36,6 +36,7 @@ public class UserDaynoteController {
      */
     @PostMapping
     public boolean insert(@RequestBody UserDaynote userDaynote) {
+        System.out.println(userDaynote);
         return userDaynoteService.insert(userDaynote);
     }
 
