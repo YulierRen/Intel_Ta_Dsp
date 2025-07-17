@@ -25,4 +25,7 @@ public interface UserDiaryMapper {
     //传diary，改内容
     boolean updateDiary(UserDiary diary);
 
+    UserDiary findById(Long userId);
+
+
 }

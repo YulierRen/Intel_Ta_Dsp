@@ -9,29 +9,37 @@ import com.lty.www.intel_ta_dsp.service.UserDaynoteService;
 import com.lty.www.intel_ta_dsp.service.UserDiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/diary")
+@RequiredArgsConstructor
 public class AiDiaryController {
 
+    @Autowired
     private DeepSeekService deepSeekService;
 
+    @Autowired
     private ScheduleService scheduleService;
 
+    @Autowired
     private UserDaynoteService userDaynoteService;
 
+    @Autowired
     private UserDiaryService userDiaryService;
 
     public static String buildPrompt(List<Schedule> schedules, List<UserDaynote> notes) {
         StringBuilder prompt = new StringBuilder();
 
-        prompt.append("请用第一人称“你”来叙述最近几天的学习和生活安排，包括日程和每日总结。")
-                .append("注意要有逻辑地串联每天的内容，整体语言要通顺流畅，有情绪表达和主观感受。\n\n");
+        prompt.append("请根据我的日程安排，完成情况和日记记录叙述我的经历与收获")
+                .append("整体语言要通顺流畅，不用过多情绪色彩，直叙时间经历与收获，最后来个总结。\n\n");
 
         // 日程部分（按时间升序排列）
         schedules.sort(Comparator.comparing(Schedule::getStartTime));
@@ -69,8 +77,51 @@ public class AiDiaryController {
         return prompt.toString();
     }
 
-    @GetMapping("/generateDiary")
-    public String ask(@RequestBody AiDiaryDTO) {
+    @GetMapping("/generateDiaryStream")
+    public SseEmitter generateDiaryStream(@RequestParam Long userId,
+                                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startdate,
+                                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date enddate) {
+        AiDiaryDTO dto = new AiDiaryDTO();
+        dto.setUserId(userId);
+        dto.setStartTime(startdate);
+        dto.setEndTime(enddate);
 
+        SseEmitter emitter = new SseEmitter(0L); // 超时时间设置为无限
+
+        new Thread(() -> {
+            try {
+                List<UserDaynote> userDaynotes = userDaynoteService.findFromStartToEnd(dto);
+                List<Schedule> schedules = scheduleService.findFromStartToEnd(dto);
+                String prompt = buildPrompt(schedules, userDaynotes);
+
+                deepSeekService.streamAsk(
+                        prompt,
+                        reasoning -> {
+                            try {
+                                emitter.send(reasoning);
+                            } catch (Exception e) {
+                                emitter.completeWithError(e);
+                            }
+                        },
+                        content -> {
+                            try {
+                                emitter.send(SseEmitter.event()
+                                        .name("content")
+                                        .data(content));
+                            } catch (Exception e) {
+                                emitter.completeWithError(e);
+                            }
+                        });
+
+                emitter.complete();
+                System.out.println("结束");
+            } catch (Exception e) {
+                System.out.println("异常");
+                emitter.completeWithError(e);
+            }
+        }).start();
+
+        return emitter;
     }
+
 }

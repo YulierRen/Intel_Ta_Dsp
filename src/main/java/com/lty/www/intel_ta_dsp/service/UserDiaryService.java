@@ -24,4 +24,7 @@ public interface UserDiaryService {
     //6. 改内容
     boolean updateDiary(UserDiary userDiary);
     boolean updateDiary(UserDiaryDTO dto);
+
+    UserDiary getDiaryById(Long userId);
+
 }

@@ -1,6 +1,7 @@
 package com.lty.www.intel_ta_dsp;
 
 import com.lty.www.intel_ta_dsp.dto.UserDaynoteDTO;
+import com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO;
 import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.*;
 import com.lty.www.intel_ta_dsp.mapper.*;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -148,6 +150,18 @@ class IntelTaDspApplicationTests {
 
     private static final Long TEST_USER_ID = 26L;
     private static final LocalDate TEST_DATE = LocalDate.now(); // 只保留日期，无时间
+
+    @Test
+    void testUserDaynoteMapper() {
+        LocalDateTime ldtStart = LocalDateTime.of(2025, 7, 27, 0, 0, 0);
+        LocalDateTime ldtEnd = LocalDateTime.of(2025, 7, 29, 0, 0, 0);
+
+        AiDiaryDTO dto = new AiDiaryDTO();
+        dto.setUserId(TEST_USER_ID);
+        dto.setStartTime(Date.from(ldtStart.atZone(ZoneId.systemDefault()).toInstant()));
+        dto.setEndTime(Date.from(ldtEnd.atZone(ZoneId.systemDefault()).toInstant()));
+        System.out.println(userDaynoteMapper.findFromStartToEnd(dto));
+    }
 
     @Test
     void testCrud() {
