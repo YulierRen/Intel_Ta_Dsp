@@ -22,9 +22,16 @@ public class UserDiaryController {
         return ResponseEntity.ok(diaries);
     }
 
+    @GetMapping("/findById")
+    public ResponseEntity<?> findById(@RequestParam Long id) {
+        UserDiary diaries = userDiaryService.getDiaryById(id);
+        return ResponseEntity.ok(diaries);
+    }
+
     // 2. 根据id设置is_public属性
     @PostMapping("/setPublicStatus")
     public ResponseEntity<?> setPublicStatus(@RequestParam Long id, @RequestParam Boolean isPublic) {
+        System.out.println(isPublic);
         boolean success = userDiaryService.updateIsPublic(id, isPublic);
         return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
@@ -32,6 +39,7 @@ public class UserDiaryController {
     // 3. 插入新日记
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody UserDiaryDTO dto) {
+        System.out.println(dto);
         UserDiary diary = userDiaryService.createDiary(dto);
         return ResponseEntity.ok(diary);
     }
@@ -49,6 +57,12 @@ public class UserDiaryController {
         List<UserDiary> publicDiaries = userDiaryService.getPublicDiaries();
         return ResponseEntity.ok(publicDiaries);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@RequestBody UserDiaryDTO dto) {
+        return ResponseEntity.ok(userDiaryService.updateDiary(dto));
+    }
+
 }
 
 

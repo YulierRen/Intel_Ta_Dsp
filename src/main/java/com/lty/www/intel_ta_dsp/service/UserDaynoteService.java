@@ -2,6 +2,7 @@ package com.lty.www.intel_ta_dsp.service;
 
 
 import com.lty.www.intel_ta_dsp.dto.UserDaynoteDTO;
+import com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO;
 import com.lty.www.intel_ta_dsp.entity.UserDaynote;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserDaynoteService {
     boolean update(UserDaynote userDaynote);
 
     boolean delete(UserDaynoteDTO dto);
+
+    List<UserDaynote> findFromStartToEnd(AiDiaryDTO dto);
 }

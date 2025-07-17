@@ -1,6 +1,7 @@
 package com.lty.www.intel_ta_dsp.config;
 
 import com.lty.www.intel_ta_dsp.security.JwtFilter;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,6 +38,10 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+    @PostConstruct
+    public void enableAsyncSecurityContext() {
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+    }
     // 安全过滤链配置
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,7 +52,8 @@ public class SecurityConfig {
                         // 允许所有人访问登录/注册接口
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/avatar/**").permitAll()
-
+                        .requestMatchers("/api/diary/generateDiaryStream").permitAll()
+                        .requestMatchers("/error").permitAll()
                         // Swagger 相关（开发环境开放）
                         .requestMatchers(
                                 "/v3/api-docs/**",

@@ -69,4 +69,9 @@ public class UserDiaryServiceImpl implements UserDiaryService {
                 .build();
         return diaryMapper.updateDiary(diary);
     }
+
+    @Override
+    public UserDiary getDiaryById(Long userId) {
+        return diaryMapper.findById(userId);
+    }
 }

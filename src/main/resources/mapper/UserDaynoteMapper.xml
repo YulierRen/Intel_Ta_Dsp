@@ -40,4 +40,18 @@
         WHERE user_id = #{userId} AND date = #{date}
     </delete>
 
+    <select id="findFromStartToEnd" parameterType="com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO" resultType="com.lty.www.intel_ta_dsp.entity.UserDaynote">
+        SELECT
+            user_id,
+            title,
+            description,
+            date,
+            created_at,
+            updated_at
+        FROM user_daynote
+        WHERE user_id = #{userId}
+          AND date BETWEEN #{startTime} AND #{endTime}
+        ORDER BY date ASC
+    </select>
+
 </mapper>

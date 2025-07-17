@@ -1,5 +1,6 @@
 package com.lty.www.intel_ta_dsp.service;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO;
 import com.lty.www.intel_ta_dsp.dto.aidto.AiSchedule;
 import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.entity.Schedule;
@@ -26,4 +27,6 @@ public interface ScheduleService {
 
 
     List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO);
+
+    List<Schedule> findFromStartToEnd(AiDiaryDTO dto);
 }

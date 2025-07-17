@@ -1,5 +1,6 @@
 package com.lty.www.intel_ta_dsp.service.impl;
 
+import com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO;
 import com.lty.www.intel_ta_dsp.dto.aidto.AiSchedule;
 import com.lty.www.intel_ta_dsp.dto.aidto.ScheduleGenerateDTO;
 import com.lty.www.intel_ta_dsp.mapper.ScheduleMapper;
@@ -45,6 +46,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO) {
+        return scheduleMapper.findFromStartToEnd(scheduleGenerateDTO);
+    }
+
+    @Override
+    public List<Schedule> findFromStartToEnd(AiDiaryDTO dto) {
+        ScheduleGenerateDTO scheduleGenerateDTO = new ScheduleGenerateDTO();
+        scheduleGenerateDTO.setUserId(dto.getUserId());
+        scheduleGenerateDTO.setStartTime(dto.getStartTime());
+        scheduleGenerateDTO.setEndTime(dto.getEndTime());
         return scheduleMapper.findFromStartToEnd(scheduleGenerateDTO);
     }
 

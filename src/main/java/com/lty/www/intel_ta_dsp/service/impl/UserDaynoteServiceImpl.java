@@ -2,6 +2,7 @@ package com.lty.www.intel_ta_dsp.service.impl;
 
 
 import com.lty.www.intel_ta_dsp.dto.UserDaynoteDTO;
+import com.lty.www.intel_ta_dsp.dto.aidto.AiDiaryDTO;
 import com.lty.www.intel_ta_dsp.entity.UserDaynote;
 import com.lty.www.intel_ta_dsp.mapper.UserDaynoteMapper;
 import com.lty.www.intel_ta_dsp.service.UserDaynoteService;
@@ -37,5 +38,10 @@ public class UserDaynoteServiceImpl implements UserDaynoteService {
     @Override
     public boolean delete(UserDaynoteDTO dto) {
         return userDaynoteMapper.delete(dto);
+    }
+
+    @Override
+    public List<UserDaynote> findFromStartToEnd(AiDiaryDTO dto) {
+        return userDaynoteMapper.findFromStartToEnd(dto);
     }
 }
