@@ -39,6 +39,15 @@ public class UserFriendController {
             return ResponseEntity.ok("添加失败");
         }
     }
+    @PutMapping("/addFriendById")
+    public ResponseEntity<?> addFriend(@RequestBody UserFriend userFriend) {
+        if(userFriendService.addFriend(userFriend)){
+            return ResponseEntity.ok("成功");
+        }
+        else{
+            return ResponseEntity.ok("添加失败");
+        }
+    }
     @PostMapping("/deleteFriend")
     public ResponseEntity<?> deleteFriend(@RequestBody UserFriendIdDTO dto) {
         if(userFriendService.deleteFriend(dto)){
@@ -46,6 +55,23 @@ public class UserFriendController {
         }
         else{
             return ResponseEntity.ok("删除失败");
+        }
+    }
+    @DeleteMapping("/deleteFriendById")
+    public ResponseEntity<?> deleteFriendById(@RequestBody UserFriend userFriend) {
+        if(userFriendService.deleteFriend(userFriend)){
+            return ResponseEntity.ok("删除成功");
+        }
+        else{
+            return ResponseEntity.ok("删除失败");
+        }
+    }
+    @PostMapping("/isMyFriend")
+    public ResponseEntity<?> isMyFriend(@RequestBody UserFriend userFriend) {
+        if(userFriendService.isFriend(userFriend)){
+            return ResponseEntity.ok(Boolean.TRUE);
+        }else{
+            return ResponseEntity.ok(Boolean.FALSE);
         }
     }
 }

@@ -18,4 +18,6 @@ public interface UserFriendService {
 
 
     boolean deleteFriend(UserFriendIdDTO userFriendDTO);
+
+    boolean isFriend(UserFriend userFriend);
 }

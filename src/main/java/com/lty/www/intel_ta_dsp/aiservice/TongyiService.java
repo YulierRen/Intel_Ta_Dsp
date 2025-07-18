@@ -19,7 +19,7 @@ public class TongyiService {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS) // 通义响应慢时要足够长
+                .readTimeout(200, TimeUnit.SECONDS) // 通义响应慢时要足够长
                 .build();
 
 

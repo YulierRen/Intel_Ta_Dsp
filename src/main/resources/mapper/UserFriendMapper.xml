@@ -22,5 +22,10 @@
            OR (user_id = #{friendId} AND friend_id = #{userId})
     </delete>
 
-
+    <select id="isFriend" parameterType="com.lty.www.intel_ta_dsp.entity.UserFriend" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM user_friend
+        WHERE user_id = #{userId}
+          AND friend_id = #{friendId}
+    </select>
 </mapper>
