@@ -2,9 +2,11 @@ package com.lty.www.intel_ta_dsp.controller;
 
 
 import com.lty.www.intel_ta_dsp.dto.UserFriendDTO;
+import com.lty.www.intel_ta_dsp.dto.UserFriendIdDTO;
 import com.lty.www.intel_ta_dsp.entity.User;
 import com.lty.www.intel_ta_dsp.entity.UserFriend;
 import com.lty.www.intel_ta_dsp.mapper.UserFriendMapper;
+import com.lty.www.intel_ta_dsp.mapper.UserMapper;
 import com.lty.www.intel_ta_dsp.service.UserFriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserFriendController {
 
     private final UserFriendService userFriendService;
+    private UserMapper userMapper;
 
     @PostMapping("/getFriendList")
     public ResponseEntity<List<User>> getFriendList(@RequestParam Long id){
@@ -28,10 +31,8 @@ public class UserFriendController {
 
     @PostMapping("/addFriend")
     public ResponseEntity<?> addFriend(@RequestBody UserFriendDTO dto) {
-        UserFriend userFriend = new UserFriend();
-        userFriend.setUserId(dto.getUserId());
-        userFriend.setFriendId(dto.getFriendId());
-        if(userFriendService.addFriend(userFriend)){
+
+        if(userFriendService.addFriend(dto)){
             return ResponseEntity.ok("成功");
         }
         else{
@@ -39,7 +40,7 @@ public class UserFriendController {
         }
     }
     @PostMapping("/deleteFriend")
-    public ResponseEntity<?> deleteFriend(@RequestBody UserFriendDTO dto) {
+    public ResponseEntity<?> deleteFriend(@RequestBody UserFriendIdDTO dto) {
         if(userFriendService.deleteFriend(dto)){
             return ResponseEntity.ok("删除成功");
         }
