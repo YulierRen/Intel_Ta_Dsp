@@ -53,4 +53,9 @@ public class UserFriendServiceImpl implements UserFriendService {
         return userFriendMapper.deleteFriend(userFriend);
     }
 
+    @Override
+    public boolean isFriend(UserFriend userFriend) {
+        return userFriendMapper.isFriend(userFriend);
+    }
+
 }

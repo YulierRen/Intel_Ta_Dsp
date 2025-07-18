@@ -14,4 +14,6 @@ public interface UserFriendMapper {
     List<User> getFriendList(Long userId) ;
 
     boolean deleteFriend(UserFriend userFriend) ;
+
+    boolean isFriend(UserFriend userFriend);
 }
