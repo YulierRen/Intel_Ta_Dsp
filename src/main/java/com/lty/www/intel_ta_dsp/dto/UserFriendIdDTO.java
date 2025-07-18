@@ -3,8 +3,7 @@ package com.lty.www.intel_ta_dsp.dto;
 import lombok.Data;
 
 @Data
-public class UserFriendDTO {
+public class UserFriendIdDTO {
     private Long userId;
-    private String friendUsername;
-
+    private Long friendId;
 }

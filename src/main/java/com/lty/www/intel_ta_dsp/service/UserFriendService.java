@@ -1,6 +1,7 @@
 package com.lty.www.intel_ta_dsp.service;
 
 import com.lty.www.intel_ta_dsp.dto.UserFriendDTO;
+import com.lty.www.intel_ta_dsp.dto.UserFriendIdDTO;
 import com.lty.www.intel_ta_dsp.entity.User;
 import com.lty.www.intel_ta_dsp.entity.UserFriend;
 
@@ -14,5 +15,7 @@ public interface UserFriendService {
     List<User> getFriendList(Long userId);
 
     boolean deleteFriend(UserFriend userFriend);
-    boolean deleteFriend(UserFriendDTO userFriendDTO);
+
+
+    boolean deleteFriend(UserFriendIdDTO userFriendDTO);
 }

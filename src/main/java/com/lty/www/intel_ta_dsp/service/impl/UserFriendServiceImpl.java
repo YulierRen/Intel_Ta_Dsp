@@ -1,9 +1,11 @@
 package com.lty.www.intel_ta_dsp.service.impl;
 
 import com.lty.www.intel_ta_dsp.dto.UserFriendDTO;
+import com.lty.www.intel_ta_dsp.dto.UserFriendIdDTO;
 import com.lty.www.intel_ta_dsp.entity.User;
 import com.lty.www.intel_ta_dsp.entity.UserFriend;
 import com.lty.www.intel_ta_dsp.mapper.UserFriendMapper;
+import com.lty.www.intel_ta_dsp.mapper.UserMapper;
 import com.lty.www.intel_ta_dsp.service.UserFriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.List;
 public class UserFriendServiceImpl implements UserFriendService {
 
     private final UserFriendMapper userFriendMapper;
+    private final UserMapper userMapper;
 
     @Override
     public boolean addFriend(UserFriend userFriend) {
@@ -24,10 +27,10 @@ public class UserFriendServiceImpl implements UserFriendService {
 
     @Override
     public boolean addFriend(UserFriendDTO dto) {
-        UserFriend userFriend = UserFriend.builder()
-                .userId(dto.getUserId())
-                .friendId(dto.getFriendId())
-                .build();
+        UserFriend userFriend = new UserFriend();
+        userFriend.setUserId(dto.getUserId());
+        User user = userMapper.findByUsername(dto.getFriendUsername());
+        userFriend.setFriendId(user.getId());
         return userFriendMapper.addFriend(userFriend);
     }
 
@@ -42,7 +45,7 @@ public class UserFriendServiceImpl implements UserFriendService {
     }
 
     @Override
-    public boolean deleteFriend(UserFriendDTO userFriendDTO) {
+    public boolean deleteFriend(UserFriendIdDTO userFriendDTO) {
         UserFriend userFriend = UserFriend.builder()
                 .userId(userFriendDTO.getUserId())
                 .friendId(userFriendDTO.getFriendId())
