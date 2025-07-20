@@ -8,16 +8,22 @@ import com.alibaba.dashscope.common.Role;
 import com.alibaba.dashscope.exception.ApiException;
 import com.alibaba.dashscope.exception.InputRequiredException;
 import com.alibaba.dashscope.exception.NoApiKeyException;
+import com.lty.www.intel_ta_dsp.config.ApiConfig;
 import io.reactivex.Flowable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+
 @Service
 public class DeepSeekService {
+
+    @Autowired
+    ApiConfig  apiConfig;
 
     private static final Logger logger = LoggerFactory.getLogger(DeepSeekService.class);
 
@@ -27,7 +33,7 @@ public class DeepSeekService {
     private GenerationParam buildGenerationParam(Message userMsg) {
         return GenerationParam.builder()
                 // 你也可以改为 System.getenv("DASHSCOPE_API_KEY")
-                .apiKey("sk-813e807674cf45dea4d4111afa007063")
+                .apiKey(apiConfig.getApiKey())
                 .model("deepseek-r1")
                 .messages(Arrays.asList(userMsg))
                 .resultFormat(GenerationParam.ResultFormat.MESSAGE)

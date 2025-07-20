@@ -2,8 +2,10 @@ package com.lty.www.intel_ta_dsp.controller;
 
 
 import com.lty.www.intel_ta_dsp.entity.UserProfile;
+import com.lty.www.intel_ta_dsp.service.AliOssService;
 import com.lty.www.intel_ta_dsp.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class UserProfileController {
     // 注入Service层依赖（Lombok的@RequiredArgsConstructor自动生成构造方法）
     private final UserProfileService userProfileService;
+    @Autowired
+    private AliOssService ossService;
 
     @PostMapping("/myProfile")
     public ResponseEntity<UserProfile> findById(@RequestParam Long userId) {
@@ -32,16 +36,13 @@ public class UserProfileController {
     }
 
     @PostMapping("/upload/avatar")
-    public Map<String, String> uploadAvatar(@RequestParam("file") MultipartFile file) throws IOException {
-        String ext = StringUtils.getFilenameExtension(file.getOriginalFilename());
-        String filename = UUID.randomUUID() + "." + ext;
-
-        // ✅ 修复拼写错误，添加 / 分隔符
-        String uploadPath = "/home/yulierren/Project/Intel_Ta_Dsp/src/main/resources/avatar/" + filename;
-        file.transferTo(new File(uploadPath));
-
-        String url = "http://192.168.176.250:8080/avatar/" + filename;
-        return Map.of("url", url);
+    public String uploadAvatar(@RequestParam("file") MultipartFile file) {
+        try {
+            return ossService.upload(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "上传失败";
+        }
     }
 
     @PutMapping("/updateProfile")

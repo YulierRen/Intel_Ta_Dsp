@@ -3,15 +3,21 @@ package com.lty.www.intel_ta_dsp.aiservice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.lty.www.intel_ta_dsp.config.ApiConfig;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+
 @Service
 public class TongyiService {
-    private static final String API_KEY = "sk-813e807674cf45dea4d4111afa007063";
+
+    @Autowired
+     ApiConfig apiConfig;
+
     private static final String API_URL = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation";
 
     public String generate(String prompt) throws IOException {
@@ -58,7 +64,7 @@ public class TongyiService {
 
         Request request = new Request.Builder()
             .url(API_URL)
-            .addHeader("Authorization", "Bearer " + API_KEY)
+            .addHeader("Authorization", "Bearer " + apiConfig.getApiKey())
             .post(body)
             .build();
 

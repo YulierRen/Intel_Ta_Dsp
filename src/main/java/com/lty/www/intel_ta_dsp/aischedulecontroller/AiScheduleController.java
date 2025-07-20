@@ -35,29 +35,42 @@ public class AiScheduleController {
      */
     public String buildPrompt(ScheduleGenerateDTO dto, String occupiedTimeInfo) {
         return """
-        你是一个日程生成 AI，根据用户提供的目标和时间范围，生成一份 Java 后端可用的 JSON 数组，表示该时间段内合理安排的与目标完全相关的日程任务。
+你是一个日程安排 AI，任务是根据用户的学习或成长目标，在指定时间范围内生成合理的日程计划。你必须生成 **与目标高度相关的任务**，并确保返回格式是 Java 后端可直接解析的 **纯 JSON 数组**（无解释文字）。
 
-        目标：%s
-        时间范围：从 %s 到 %s
-        %s
+### 用户目标：
+%s
 
-        请生成一个 JSON 数组，数组中的每一项代表一个任务，包含以下字段：
+请你首先理解目标并将其拆解为多个可执行的小任务。
 
-        - title：任务标题，必须紧密相关于目标（不超过九个字）
-        - description：任务简要描述，必须与目标内容一致
-        - startTime：任务开始时间，格式为 "yyyy-MM-dd HH:mm:ss"
-        - endTime：任务结束时间，格式为 "yyyy-MM-dd HH:mm:ss"
-        - location：任务地点，根据目标灵活生成
+### 时间范围：
+从 %s 到 %s
+- 请按“天”进行任务分布（如时间为多天，则合理分散；如仅一天，则控制任务数量）。
+- 任务时间必须完全落在此范围内。
+- 建议安排在每日 08:00 至 22:00 之间，避免凌晨和深夜。
 
-        要求：
+### 已占用时间段：
+%s
 
-        1. 只安排与目标相关的任务，不允许安排其他不相关内容。
-        2. 任务时间必须在指定时间范围内。
-        3. 一天内可以安排零到三条任务不等，且时间不重叠。
-        4. 每个任务时长建议30分钟至3小时。
-        5. 在整个时间范围内，合理安排任务在一天中的时间段。
-        6. 返回纯 JSON 数组，无额外文字说明。
-        """.formatted(dto.getRequirements(), dto.getStartTime(), dto.getEndTime(), occupiedTimeInfo);
+请避开上述时间段，确保生成的任务时间段不与其冲突。任务之间也不得重叠。
+
+### 输出格式要求：
+请直接生成 JSON 数组，数组中的每一项为一个任务对象，结构如下：
+
+```json
+{
+  "title": "不超过九字的任务标题",
+  "description": "任务说明，必须贴合目标",
+  "startTime": "yyyy-MM-dd HH:mm:ss",
+  "endTime": "yyyy-MM-dd HH:mm:ss",
+  "location": "任务地点，自主设定"
+}
+""".formatted(
+                dto.getRequirements(),
+                dto.getStartTime(),
+                dto.getEndTime(),
+                occupiedTimeInfo.isEmpty() ? "" : "",
+                occupiedTimeInfo
+        );
     }
 
     /**
