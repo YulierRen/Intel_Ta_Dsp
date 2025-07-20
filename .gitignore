@@ -1,33 +1,47 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
+# 忽略 .prop 配置文件
+*.properties
+
+### Java ###
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+### Build ###
+/target/
+/build/
+
+### Maven ###
+.mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.iws
+
+### VS Code ###
+.vscode/
+
+### Eclipse / STS ###
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-### VS Code ###
-.vscode/
+### Misc ###
+HELP.md
