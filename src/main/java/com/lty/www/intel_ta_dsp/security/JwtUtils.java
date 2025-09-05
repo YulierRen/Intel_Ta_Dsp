@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtUtils {
 
-    private final String SECRET = "你的32位以上随机字符串密钥，必须足够长1234"; // 最少32字节，建议更复杂
+    private final String SECRET = "YulierRen@2037@Jiuhuo2037WoshiLiutianyenimenhaoLaidianPiaoliangmeimei";
 
     private Key key;
 

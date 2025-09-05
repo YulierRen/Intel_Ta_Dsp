@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -227,5 +230,18 @@ class IntelTaDspApplicationTests {
                 .build();
         List<UserDaynote> afterInsert = userDaynoteMapper.selectBy(dto);
         System.out.println("【插入后查询】结果: " + afterInsert);
+    }
+
+
+    @Test
+    void testconn(){
+        String url = "jdbc:mysql://47.105.37.144:3306/Intel_Ta_Dsp?useSSL=false&serverTimezone=UTC";
+        String username = "root";
+        String password = "root123";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            System.out.println("连接成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

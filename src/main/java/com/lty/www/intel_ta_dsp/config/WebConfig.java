@@ -13,3 +13,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:/home/yulierren/Project/Intel_Ta_Dsp/src/main/resources/avatar/");
     }
 }
+

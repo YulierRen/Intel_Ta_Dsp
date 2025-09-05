@@ -53,6 +53,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
+
         CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
         String token = jwtUtils.generateToken(user.getUsername(),user.getRole());
         System.out.println(token);
@@ -60,7 +61,7 @@ public class AuthController {
         // 组装响应数据
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("studentId", user.getId()); // 根据你的设计取 studentId
+        response.put("studentId", user.getId()); // 取 studentId
 
         return ResponseEntity.ok(response);
     }
