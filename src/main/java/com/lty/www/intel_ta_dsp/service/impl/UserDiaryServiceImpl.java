@@ -22,7 +22,6 @@ public class UserDiaryServiceImpl implements UserDiaryService {
 
     @Override
     @Slave
-    @Cacheable(value = "userDiaries", key = "#userId")
     public List<UserDiary> getDiariesByUserId(Long userId) {
         return diaryMapper.findByUserId(userId);
     }
@@ -84,7 +83,6 @@ public class UserDiaryServiceImpl implements UserDiaryService {
 
     @Override
     @Slave
-    @Cacheable(value = "userDiary", key = "#userId")
     public UserDiary getDiaryById(Long userId) {
         return diaryMapper.findById(userId);
     }

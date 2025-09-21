@@ -105,7 +105,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173"); // ✅ Vue 开发端口
+        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://47.105.37.144");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true); // 允许携带 Cookie 或 Authorization

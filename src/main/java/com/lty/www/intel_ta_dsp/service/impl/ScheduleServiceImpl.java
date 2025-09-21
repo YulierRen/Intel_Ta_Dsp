@@ -7,6 +7,8 @@ import com.lty.www.intel_ta_dsp.mapper.ScheduleMapper;
 import com.lty.www.intel_ta_dsp.entity.Schedule;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import com.lty.www.intel_ta_dsp.datasource.Master;
 import com.lty.www.intel_ta_dsp.datasource.Slave;
@@ -22,6 +24,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleMapper scheduleMapper;
 
+    // ===================== 读方法 =====================
     @Override
     @Slave
     @Cacheable(value = "userSchedules", key = "#studentId")
@@ -37,33 +40,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    @Master
-    public boolean addSchedule(Schedule schedule) {
-        return scheduleMapper.insertSchedule(schedule) > 0;
-    }
-
-    @Override
-    @Master
-    public boolean updateSchedule(Schedule schedule) {
-        return scheduleMapper.updateSchedule(schedule) > 0;
-    }
-
-    @Override
-    @Master
-    public boolean deleteSchedule(Long id) {
-        return scheduleMapper.deleteSchedule(id) > 0;
-    }
-
-    @Override
     @Slave
-    @Cacheable(value = "scheduleRange", key = "#scheduleGenerateDTO.userId + '_' + #scheduleGenerateDTO.startTime + '_' + #scheduleGenerateDTO.endTime")
     public List<Schedule> findFromStartToEnd(ScheduleGenerateDTO scheduleGenerateDTO) {
         return scheduleMapper.findFromStartToEnd(scheduleGenerateDTO);
     }
 
     @Override
     @Slave
-    @Cacheable(value = "scheduleRange", key = "#dto.userId + '_' + #dto.startTime + '_' + #dto.endTime")
     public List<Schedule> findFromStartToEnd(AiDiaryDTO dto) {
         ScheduleGenerateDTO scheduleGenerateDTO = new ScheduleGenerateDTO();
         scheduleGenerateDTO.setUserId(dto.getUserId());
@@ -72,9 +55,47 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleMapper.findFromStartToEnd(scheduleGenerateDTO);
     }
 
+    // ===================== 写方法 =====================
+
     @Override
     @Master
-    public boolean addSchedule(AiSchedule ai,Long id){
+    @Caching(evict = {
+            @CacheEvict(value = "userSchedules", key = "#schedule.userId"),
+            @CacheEvict(value = "scheduleRange", allEntries = true)
+    })
+    public boolean addSchedule(Schedule schedule) {
+        return scheduleMapper.insertSchedule(schedule) > 0;
+    }
+
+    @Override
+    @Master
+    @Caching(evict = {
+            @CacheEvict(value = "userSchedules", key = "#schedule.userId"),
+            @CacheEvict(value = "scheduleRange", allEntries = true),
+            @CacheEvict(value = "schedule", key = "#schedule.id")
+    })
+    public boolean updateSchedule(Schedule schedule) {
+        return scheduleMapper.updateSchedule(schedule) > 0;
+    }
+
+    @Override
+    @Master
+    @Caching(evict = {
+            @CacheEvict(value = "userSchedules", allEntries = true),
+            @CacheEvict(value = "scheduleRange", allEntries = true),
+            @CacheEvict(value = "schedule", key = "#id")
+    })
+    public boolean deleteSchedule(Long id) {
+        return scheduleMapper.deleteSchedule(id) > 0;
+    }
+
+    @Override
+    @Master
+    @Caching(evict = {
+            @CacheEvict(value = "userSchedules", key = "#id"),
+            @CacheEvict(value = "scheduleRange", allEntries = true)
+    })
+    public boolean addSchedule(AiSchedule ai, Long id) {
         Schedule schedule = Schedule.builder()
                 .userId(id)
                 .title(ai.getTitle())

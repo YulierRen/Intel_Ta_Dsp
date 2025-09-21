@@ -39,7 +39,7 @@ public class AiDiaryController {
         StringBuilder prompt = new StringBuilder();
 
         prompt.append("请根据我的日程安排，完成情况和日记记录叙述我的经历与收获")
-                .append("整体语言要通顺流畅，不同的经历要有不同的情绪色彩（如学习自律就要重经历和收获，出行旅游就要重情绪与优美文风），直叙时间经历与收获，最后来个总结。\n\n");
+                .append("整体语言要通顺流畅，直叙哪天干了什么，最后来个总结，不超过512个字。\n\n");
 
         // 日程部分（按时间升序排列）
         schedules.sort(Comparator.comparing(Schedule::getStartTime));

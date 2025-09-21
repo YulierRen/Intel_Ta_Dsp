@@ -7,6 +7,7 @@ import com.lty.www.intel_ta_dsp.entity.*;
 import com.lty.www.intel_ta_dsp.mapper.*;
 import com.lty.www.intel_ta_dsp.service.FriendRequestService;
 import com.lty.www.intel_ta_dsp.service.ScheduleService;
+import com.lty.www.intel_ta_dsp.service.UserProfileService;
 import com.lty.www.intel_ta_dsp.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -243,5 +245,12 @@ class IntelTaDspApplicationTests {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    @Autowired
+    UserProfileService userProfileService;
+    @Test
+    void getprofile(){
+        System.out.println(userProfileService.getUserProfileByUserId(36L));
+        List<Integer> list = new ArrayList<>();
     }
 }

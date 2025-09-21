@@ -5,8 +5,19 @@
 
     <!-- 根据用户ID查询档案 -->
     <select id="selectByUserId" resultType="com.lty.www.intel_ta_dsp.entity.UserProfile">
-        SELECT * FROM user_profile WHERE user_id = #{userId}
+        SELECT
+            user_id AS userId,
+            nickname,
+            avatar_url AS avatarUrl,
+            gender,
+            birthday,
+            bio,
+            created_at AS createdAt,
+            updated_at AS updatedAt
+        FROM user_profile
+        WHERE user_id = #{userId}
     </select>
+
 
     <!-- 新增用户档案 -->
     <insert id="insertUserProfile" parameterType="com.lty.www.intel_ta_dsp.entity.UserProfile">

@@ -1,0 +1,19 @@
+{
+  "userId": 26,
+  "requirements": "学习java基础",
+  "startTime": "2025-07-14",
+  "endTime": "2025-07-30"
+}
+
+
+
+{
+  "userId": 26,
+  "requirements": "学习javaweb基础",
+  "startTime": "2025-08-01T11:18",
+  "endTime": "2025-08-30T11:19"
+}
+
+
+
+{"output":{"choices":[{"finish_reason":"stop","message":{"role":"assistant","content":"[{\"title\":\"完成Java基础语法的学习\",\"description\":\"学习Java的基础语法，包括变量、数据类型、运算符等\",\"startTime\":\"2025-07-13 09:00:00\",\"endTime\":\"2025-07-13 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java流程控制的学习\",\"description\":\"学习Java的流程控制语句，如if-else、switch、for循环、while循环等\",\"startTime\":\"2025-07-14 09:00:00\",\"endTime\":\"2025-07-14 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java数组和字符串的学习\",\"description\":\"学习Java中数组和字符串的相关知识\",\"startTime\":\"2025-07-15 09:00:00\",\"endTime\":\"2025-07-15 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java方法和类的学习\",\"description\":\"学习Java的方法定义和类的概念\",\"startTime\":\"2025-07-16 09:00:00\",\"endTime\":\"2025-07-16 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java面向对象编程的学习\",\"description\":\"学习Java的面向对象编程特性，如封装、继承、多态等\",\"startTime\":\"2025-07-17 09:00:00\",\"endTime\":\"2025-07-17 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java异常处理的学习\",\"description\":\"学习Java中的异常处理机制\",\"startTime\":\"2025-07-18 09:00:00\",\"endTime\":\"2025-07-18 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java集合框架的学习\",\"description\":\"学习Java的集合框架，如List、Set、Map等\",\"startTime\":\"2025-07-19 09:00:00\",\"endTime\":\"2025-07-19 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java多线程和并发编程的学习\",\"description\":\"学习Java的多线程和并发编程知识\",\"startTime\":\"2025-07-20 09:00:00\",\"endTime\":\"2025-07-20 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java文件IO和网络编程的学习\",\"description\":\"学习Java的文件IO和网络编程相关知识\",\"startTime\":\"2025-07-21 09:00:00\",\"endTime\":\"2025-07-21 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java数据库连接的学习\",\"description\":\"学习Java如何连接数据库，使用JDBC\",\"startTime\":\"2025-07-22 09:00:00\",\"endTime\":\"2025-07-22 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java综合练习和项目实践\",\"description\":\"通过实际项目巩固所学Java知识\",\"startTime\":\"2025-07-23 09:00:00\",\"endTime\":\"2025-07-23 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java复习和总结\",\"description\":\"回顾Java基础知识，整理笔记和问题\",\"startTime\":\"2025-07-24 09:00:00\",\"endTime\":\"2025-07-24 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java测试和模拟题练习\",\"description\":\"进行Java相关的测试和模拟题练习以检验学习成果\",\"startTime\":\"2025-07-25 09:00:00\",\"endTime\":\"2025-07-25 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java进阶内容的学习（可选）\",\"description\":\"根据需要选择学习Java进阶内容，如设计模式、高级API等\",\"startTime\":\"2025-07-26 09:00:00\",\"endTime\":\"2025-07-26 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java复习和总结（第二轮）\",\"description\":\"再次复习Java基础知识，查漏补缺\",\"startTime\":\"2025-07-27 09:00:00\",\"endTime\":\"2025-07-27 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java综合练习和项目实践（第二轮）\",\"description\":\"通过更复杂的项目来进一步巩固Java知识\",\"startTime\":\"2025-07-28 09:00:00\",\"endTime\":\"2025-07-28 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java测试和模拟题练习（第二轮）\",\"description\":\"再次进行Java相关的测试和模拟题练习以确保掌握程度\",\"startTime\":\"2025-07-29 09:00:00\",\"endTime\":\"2025-07-29 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java复习和总结（第三轮）\",\"description\":\"第三次复习Java基础知识，确保全面掌握\",\"startTime\":\"2025-07-30 09:00:00\",\"endTime\":\"2025-07-30 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java综合练习和项目实践（第三轮）\",\"description\":\"通过复杂项目进一步提升Java开发能力\",\"startTime\":\"2025-07-31 09:00:00\",\"endTime\":\"2025-07-31 12:00:00\",\"location\":\"线上学习\"},{\"title\":\"完成Java最终复习和准备考试或面试\",\"description\":\"针对Java相关考试或面试做最后的复习和准备\",\"startTime\":\"2025-08-01 09:00:00\",\"endTime\":\"2025-08-01 12:00:00\",\"location\":\"线上学习\"}]"}}]},"usage":{"total_tokens":1700,"output_tokens":1469,"input_tokens":231,"prompt_tokens_details":{"cached_tokens":0}},"request_id":"f7cff9df-fedc-90e1-9adf-1886c325f9a6"}

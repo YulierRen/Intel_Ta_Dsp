@@ -3,6 +3,8 @@ package com.lty.www.intel_ta_dsp.security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.*;
@@ -15,6 +17,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
+    private final RedisTemplate<String,Object> redisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -32,8 +37,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
-            String username = jwtUtils.getUsernameFromToken(token);
 
+
+            String username = jwtUtils.getUsernameFromToken(token);
+            String redisToken = stringRedisTemplate.opsForValue().get("login:token:" + username);
+            if (!token.equals(redisToken)) {
+                throw new RuntimeException("Token 已失效，请重新登录");
+            }
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 System.out.println("用户权限" + userDetails.getAuthorities());

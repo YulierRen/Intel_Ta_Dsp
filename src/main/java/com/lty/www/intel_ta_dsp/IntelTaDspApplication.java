@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.lty.www.intel_ta_dsp.mapper")
+// 确保aspect包被扫描（默认即可）
 public class IntelTaDspApplication {
 
     public static void main(String[] args) {

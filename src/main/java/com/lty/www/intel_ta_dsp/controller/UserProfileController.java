@@ -29,6 +29,7 @@ public class UserProfileController {
     @PostMapping("/myProfile")
     public ResponseEntity<UserProfile> findById(@RequestParam Long userId) {
         UserProfile profile = userProfileService.getUserProfileByUserId(userId);
+        System.out.println(profile);
         if (profile == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserProfile());
         }
