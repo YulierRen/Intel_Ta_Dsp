@@ -1,4 +1,5 @@
 # Intel_Ta_Dsp
+
 ![build](https://img.shields.io/badge/build-passing-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
@@ -7,9 +8,9 @@
 ---
 
 ## 目录
+
 - [主要特性](#主要特性)
 - [技术栈](#技术栈)
-- [项目结构](#项目结构)
 - [快速开始](#快速开始)
 - [典型接口](#典型接口)
 - [贡献](#贡献)
@@ -18,8 +19,9 @@
 ---
 
 ## 主要特性
+
 - **用户系统**：注册、登录、JWT 鉴权、用户资料管理
-- **日程管理**：支持日程的增删改查，AI 智能生成日程，比如（“我想去青岛玩”）然后生成日程并返回
+- **日程管理**：支持日程的增删改查，AI 智能生成日程，比如（"我想去青岛玩"）然后生成日程并返回
 - **日记/每日笔记**：支持用户日记、每日笔记的管理
 - **AI 总结**：集成阿里云百炼（DashScope）、DeepSeek 等大模型，可以总结用户日程与日记并公开
 - **关注选项**：能关注ta人，然后查看ta的主页
@@ -32,6 +34,7 @@
 ---
 
 ## 技术栈
+
 - **后端框架**：Spring Boot 3.x
 - **持久层**：MyBatis
 - **数据库**：MySQL
@@ -47,6 +50,7 @@
 ## 快速开始
 
 ### 1. 环境准备
+
 - JDK 17+
 - MySQL 8.0
 - Redis
@@ -54,23 +58,34 @@
 - Maven 3.8+
 
 ### 2. 配置数据库和 Redis
+
 在 `src/main/resources/application.yml` 配置数据库、Redis、RocketMQ 连接信息。
 
 ### 3. 启动项目
-```bash
-# 使用 Maven
-mvn spring-boot:run
-或直接运行主类 IntelTaDspApplication.java
 
-4. 访问接口文档
+使用 Maven
+
+```bash
+mvn spring-boot:run
+```
+
+或直接运行主类IntelTaDspApplication.java
+
+
+### 4. 访问接口文档
+
+
+
 浏览器访问：
 
-bash
-复制代码
+text
 http://localhost:8082/swagger-ui/index.html
-典型接口
+
+## 典型接口
+
 用户注册/登录
 POST /api/auth/register
+
 POST /api/auth/login
 
 用户管理
@@ -88,15 +103,17 @@ POST /api/diary/generateDiaryStream
 好友系统
 GET/POST/PUT/DELETE /api/friendRequest/*
 
-贡献
+## 贡献
+
 欢迎提交 Issue 和 Pull Request！
 如有建议或问题请联系作者。
 
-License
+## License
+
 MIT License
 
-本项目为学习与研究用途，部分功能需配置第三方 API Key（如 DashScope、DeepSeek）。
+本项目为学习与研究用途，部分功能需配置
 
-yaml
-复制代码
+
+
 
