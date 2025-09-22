@@ -2,7 +2,7 @@
 ![build](https://img.shields.io/badge/build-passing-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
-**Intel_Ta_Dsp** 是一个基于 **Spring Boot** 的智能任务与日程管理系统，支持用户管理、日程安排、AI 日志总结、好友系统、RocketMQ 异步任务、Redis 缓存、MySQL 读写分离等功能。适合个人成长、学习计划、团队协作等多场景使用。
+**Intel_Ta_Dsp** 是一个基于 **Spring Boot** 的智能任务与日程管理系统，支持AI日程安排、AI 日志总结、好友系统、RocketMQ 异步任务、Redis 缓存、MySQL 读写分离等功能。适合个人成长、学习计划、旅游计划等多场景使用。
 
 ---
 
@@ -19,14 +19,14 @@
 
 ## 主要特性
 - **用户系统**：注册、登录、JWT 鉴权、用户资料管理
-- **日程管理**：支持日程的增删改查，AI 智能生成日程
-- **日记/每日笔记**：支持用户日记、每日笔记的管理与公开
-- **AI 总结**：集成阿里云百炼（DashScope）、DeepSeek 等大模型，自动总结用户日程与日记
-- **好友与请求**：好友添加、请求管理
-- **异步任务**：RocketMQ 解耦 AI 任务生成与返回
-- **Redis 缓存**：高效缓存用户数据，支持分布式锁
-- **MySQL 读写分离**：主从数据源自动切换，提升性能
-- **AOP 日志**：接口调用日志自动记录
+- **日程管理**：支持日程的增删改查，AI 智能生成日程，比如（“我想去青岛玩”）然后生成日程并返回
+- **日记/每日笔记**：支持用户日记、每日笔记的管理
+- **AI 总结**：集成阿里云百炼（DashScope）、DeepSeek 等大模型，可以总结用户日程与日记并公开
+- **关注选项**：能关注ta人，然后查看ta的主页
+- **异步任务**：RocketMQ 解耦 AI 任务生成与返回，生成请求和相应解耦
+- **Redis 缓存**：高效缓存用户数据，支持分布式锁，在redis服务中储存jwt和用户唯一标识，ops方法实现单点登录
+- **MySQL 读写分离**：主从数据源自动切换，提升性能，减少并发错误
+- **AOP 日志**：接口调用日志自动记录，切换数据源
 - **WebSocket**：支持实时消息推送
 
 ---
@@ -44,29 +44,11 @@
 
 ---
 
-## 项目结构
-Intel_Ta_Dsp
-├─ src/main/java/com/lty/www/intel_ta_dsp
-│ ├─ controller // 控制层
-│ ├─ service // 业务逻辑
-│ ├─ mapper // MyBatis Mapper
-│ ├─ model // 实体类
-│ ├─ config // 配置类
-│ └─ util // 工具类
-└─ src/main/resources
-├─ application.yml // 配置文件
-└─ mapper // Mapper XML
-
-yaml
-复制代码
-
----
-
 ## 快速开始
 
 ### 1. 环境准备
 - JDK 17+
-- MySQL 5.7/8.0
+- MySQL 8.0
 - Redis
 - RocketMQ
 - Maven 3.8+
